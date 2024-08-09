@@ -6,15 +6,26 @@ const greetingEl = document.getElementById("greeting");
 
 const calendarEl = document.getElementById("calendar");
 
+var today = new Date();
+var month = today.getMonth() + 1;
+var date = today.getDate();
+var year = today.getFullYear();
+var hour = today.getHours();
+var minute = today.getMinutes();
+
 var userName = "";
 
+const refreshDate = () => {
+	today = new Date();
+	month = today.getMonth() + 1;
+	date = today.getDate();
+	year = today.getFullYear();
+	hour = today.getHours();
+	minute = today.getMinutes();
+}
+
 const showHome = () => {
-	var today = new Date();
-	var month = today.getMonth() + 1;
-	var date = today.getDate();
-	var year = today.getFullYear();
-	var hour = today.getHours();
-	var minute = today.getMinutes();
+	refreshDate();
 	// console.log(`${month}/${date}/${year} ${hour}:${minute}`);
 
 	homeWrapper.removeAttribute("style");
@@ -43,8 +54,6 @@ const showCalendar = () => {
 	// homeWrapper.style.display = "none";
 	calendarWrapper.removeAttribute("style");
 	selectWrapper.style.display = "none";
-
-	// calendarEl
 }
 
 const initTracker = () => {
