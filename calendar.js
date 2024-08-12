@@ -6,13 +6,6 @@
 		this.el = document.querySelector(selector);
 		this.current = moment().date(1);
 		this.draw();
-		var current = document.querySelector('.today');
-		if(current) {
-		  var self = this;
-		  window.setTimeout(function() {
-		    self.openDay(current);
-		  }, 500);
-		}
 	}
 
 	Calendar.prototype.draw = function() {
@@ -133,7 +126,6 @@
 
 		outer.appendChild(name);
 		outer.appendChild(number);
-		// outer.appendChild(events);
 		this.week.appendChild(outer);
 	}
 
@@ -148,7 +140,7 @@
 	}
 
 	Calendar.prototype.openDay = function(el) {
-		console.log(el);
+		flipCal(el, this.el);
 	}
 
 	Calendar.prototype.nextMonth = function() {

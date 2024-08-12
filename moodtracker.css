@@ -22,7 +22,6 @@
 	text-align: center;
 	margin: 0;
 	padding: 0;
-/*	border: 1px solid red; /* for testing purposes only */*/
 }
 
 .wrapper {
@@ -65,5 +64,29 @@ p {
 }
 
 #calendar-wrapper {
-	background: var(--background-color);
+	height: 405px;
+	width: 500px;
+	overflow: hidden;
+ 	margin: 0 auto;
+
+ 	position: relative;
+ 	transform-style: preserve-3d;
+}
+
+#calendar-wrapper .view {
+	transition: transform 1s linear;
+ 	backface-visibility: hidden;
+ 	position: absolute;
+}
+
+#calendar-wrapper .back-view {
+	transform: rotateY(-180deg);
+}
+
+#calendar-wrapper.flip .front-view {
+	transform: rotateY(180deg);
+}
+
+#calendar-wrapper.flip .back-view {
+	transform: rotateY(0);
 }

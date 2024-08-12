@@ -1,0 +1,23 @@
+:root {
+	--background-color: rgb(191, 209, 229);
+	--mainBackground-color: rgb(166, 189, 219);
+	--tileBackground-color: rgb(128, 166, 206);
+
+	--border-color: rgb(217, 229, 240);
+	--inputBorder-color: rgb(80, 133, 188);
+
+	--buttonBackground-color: rgb(104, 149, 197);
+	--buttonHoverBackground-color: rgb(166, 189, 219);
+	--buttonText-color: rgb(217, 229, 240);
+
+	--headerText-color: rgb(8, 96, 168);
+	--subHeaderText-color: rgb(45, 114, 178);
+	--regularText-color: rgb(104, 149, 197);
+	--inputText-color: rgb(80, 133, 188);
+}
+
+#details {
+	background-color: var(--mainBackground-color);
+	width: 100%;
+	height: 100%;
+}

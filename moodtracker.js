@@ -60,4 +60,11 @@ const initTracker = () => {
 	showHome();
 }
 
+const flipCal = (dayEl, calEl) => {
+	console.log(dayEl);
+	console.log(calEl);
+	calendarWrapper.classList.add("flip");
+
+}
+
 initTracker();

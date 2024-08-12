@@ -27,10 +27,8 @@
 	overflow: hidden;
 	font-family: 'HelveticaNeue-UltraLight', 'Helvetica Neue UltraLight', 'Helvetica Neue', Arial, Helvetica, sans-serif;
 	font-weight: 100;
-/*	color: white;*/
 	margin: 0;
 	padding: 0;
-/*	background: silver;*/
 	-webkit-touch-callout: none;
 	-webkit-user-select: none;
 	-khtml-user-select: none;
@@ -43,10 +41,8 @@
 	-webkit-transform: translate3d(0, 0, 0);
 	-moz-transform: translate3d(0, 0, 0);
 	transform: translate3d(0, 0, 0);
-	width: 500px;
-	margin: 0 auto;
-	height: 370px;
-	overflow: hidden;
+  width: 100%;
+  height: 100%;
 }
 
 .header {
@@ -135,6 +131,7 @@
   display: inline-block;
   width: 60px;
   padding: 10px;
+  margin: 3px;
   text-align: center;
   vertical-align: top;
   cursor: pointer;
@@ -165,30 +162,7 @@
   letter-spacing: 1.5px;
 }
 
-.entry {
-  position: relative;
-  padding: 0 0 0 25px;
-  font-size: 13px;
-  display: inline-block;
-  line-height: 30px;
-  background: transparent;
-}
-
-.entry:after {
-  position: absolute;
-  content: '';
-  height: 5px;
-  width: 5px;
-  top: 12px;
-  left: 14px;
-}
-
-.entry.happy:after { background: var(--happy-background); }
-.entry.sad:after { background: var(--sad-background); }
-/*.entry.green:after { background: rgba(153, 198, 109, 1); }
-.entry.yellow:after { background: rgba(249, 233, 0, 1); }*/
-
-/* Animations are cool!  */
+/* Animations */
 @-webkit-keyframes moveFromTopFade {
   from { opacity: .3; height:0px; margin-top:0px; -webkit-transform: translateY(-100%); }
 }
