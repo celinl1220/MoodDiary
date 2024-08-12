@@ -1,175 +1,105 @@
-!function() {
+const detailsEl = document.getElementById("details");
 
-	function Details(selector) {
-		this.el = document.querySelector(selector);
-		this.draw();
-	}
+const monthsConv = {
+	1: "january",
+	2: "february",
+	3: "march", 
+	4: "april", 
+	5: "may", 
+	6: "june",
+	7: "july", 
+	8: "august", 
+	9: "september", 
+	10: "october", 
+	11: "november",
+	12: "december"
+}
 
-	Details.prototype.draw = function() {
-		//Create Header
-		this.drawHeader();
+const moodsConv = {
+	1: "amazing",
+	2: "good",
+	3: "ok",
+	4: "bad",
+	5: "horrible"
+}
 
-		//Draw Mood
-		this.drawMood();
+const selectDetails = () => {
+	// console.log("selecting...");
+	clearDetails();
+}
 
-		//Draw Other Details
-		this.drawOtherDetails();
-	}
+const showDetails = (dataOpen) => {
+	createDetailsHeader(dataOpen);
+	createDetailsMood(dataOpen);
+	createDetails(dataOpen, "activities");
+	createDetails(dataOpen, "weather");
+}
 
-	Details.prototype.drawHeader = function() {
-		var self = this;
-		if(!this.header) {
-		  //Create the header elements
-		  this.header = createElement('div', 'header');
-		  this.header.className = 'header';
+const clearDetails = () => {
+	detailsEl.innerHTML = "";
+}
 
-		  this.title = createElement('h1');
+const createDetailsHeader = (dataOpen) => {
+	let headerDiv = document.createElement("div");
+	headerDiv.className = "header";
 
-		  //Append the Elements
-		  this.header.appendChild(this.title); 
-		  this.el.appendChild(this.header);
-		}
+	let dateTitle = document.createElement("h1");
+	dateTitle.className = "date-open";
+	dateTitle.innerText = `${monthsConv[Number(monthOpen)]} ${dateOpen}, ${yearOpen}`;
 
-		this.title.innerHTML = this.current.format('MMMM DD YYYY');
-	}
+	let backBtn = document.createElement("div");
+	backBtn.className = "details-btn";
+	backBtn.id = "back-btn";
+	backBtn.innerText = "back"; // replace with back arrow later?
+	backBtn.addEventListener("click", () => {
+		unFlipCal();
+		setTimeout(clearDetails, 1000); // wait for animation to finish to clear details
+	});
 
-	// Calendar.prototype.drawMonth = function() {
-	// 	var self = this;
+	let editBtn = document.createElement("div");
+	editBtn.className = "details-btn";
+	editBtn.id = "edit-btn";
+	editBtn.innerText = "edit";
+	editBtn.addEventListener("click", selectDetails);
 
-	// 	if(this.month) {
-	// 	  this.oldMonth = this.month;
-	// 	  this.oldMonth.className = 'month out ' + (self.next ? 'next' : 'prev');
-	// 	  this.oldMonth.addEventListener('webkitAnimationEnd', function() {
-	// 	    self.oldMonth.parentNode.removeChild(self.oldMonth);
-	// 	    self.month = createElement('div', 'month');
-	// 	    self.backFill();
-	// 	    self.currentMonth();
-	// 	    self.fowardFill();
-	// 	    self.el.appendChild(self.month);
-	// 	    window.setTimeout(function() {
-	// 	      self.month.className = 'month in ' + (self.next ? 'next' : 'prev');
-	// 	    }, 16);
-	// 	  });
-	// 	} else {
-	// 	    this.month = createElement('div', 'month');
-	// 	    this.el.appendChild(this.month);
-	// 	    this.backFill();
-	// 	    this.currentMonth();
-	// 	    this.fowardFill();
-	// 	    this.month.className = 'month new';
-	// 	}
-	// }
+	headerDiv.appendChild(backBtn);
+	headerDiv.appendChild(dateTitle);
+	headerDiv.appendChild(editBtn);
+	detailsEl.appendChild(headerDiv);
+}
 
-	// Calendar.prototype.backFill = function() {
-	// 	var clone = this.current.clone();
-	// 	var dayOfWeek = clone.day();
+const createDetailsMood = (dataOpen) => {
+	let moodDiv = document.createElement("div");
+	moodDiv.id = "mood"
+	moodDiv.className = "details-body";
+	let moodData = moodsConv[dataOpen["mood"]];
+	let moodHeader = document.createElement("h2");
+	moodHeader.innerText = "mood";
+	let moodContent = document.createElement("p");
+	moodContent.innerText = moodData;
 
-	// 	if(!dayOfWeek) { return; }
+	moodDiv.appendChild(moodHeader);
+	moodDiv.appendChild(moodContent);
+	detailsEl.appendChild(moodDiv);
+}
 
-	// 	clone.subtract(dayOfWeek+1, 'days');
+const createDetails = (dataOpen, type) => {
+	let detailsDiv = document.createElement("div");
+	detailsDiv.id = type;
+	detailsDiv.className = "details-body";
+	let detailsData = dataOpen[type];
+	let detailsHeader = document.createElement("h2");
+	detailsHeader.innerText = type;
 
-	// 	for(var i = dayOfWeek; i > 0 ; i--) {
-	// 		this.drawDay(clone.add(1, 'days'));
-	// 	}
-	// }
+	let detailsContent = document.createElement("div");
+	detailsContent.className = "content-div"
+	detailsData.forEach((el) => {
+		let element = document.createElement("span");
+		element.innerText = el;
+		detailsContent.appendChild(element);
+	})
 
-	// Calendar.prototype.fowardFill = function() {
-	// 	var clone = this.current.clone().add(1, 'months').subtract(1, 'days');
-	// 	var dayOfWeek = clone.day();
-
-	// 	if(dayOfWeek === 6) { return; }
-
-	// 	for(var i = dayOfWeek; i < 6 ; i++) {
-	// 		this.drawDay(clone.add(1, 'days'));
-	// 	}
-	// }
-
-	// Calendar.prototype.currentMonth = function() {
-	// 	var clone = this.current.clone();
-
-	// 	while(clone.month() === this.current.month()) {
-	// 		this.drawDay(clone);
-	// 		clone.add(1, 'days');
-	// 	}
-	// }
-
-	// Calendar.prototype.getWeek = function(day) {
-	// 	if(!this.week || day.day() === 0) {
-	// 		this.week = createElement('div', 'week');
-	// 		this.month.appendChild(this.week);
-	// 	}
-	// }
-
-	// Calendar.prototype.drawDay = function(day) {
-	// 	var self = this;
-	// 	this.getWeek(day);
-
-	// 	//Outer Day
-	// 	var outer = createElement('div', this.getDayClass(day));
-	// 	outer.addEventListener('click', function() {
-	// 	  self.openDay(this);
-	// 	});
-
-	// 	//Day Name
-	// 	var name = createElement('div', 'day-name', day.format('ddd'));
-
-	// 	//Day Number
-	// 	var number = createElement('div', 'day-number', day.format('DD'));
-
-	// 	outer.appendChild(name);
-	// 	outer.appendChild(number);
-	// 	this.week.appendChild(outer);
-	// }
-
-	// Calendar.prototype.getDayClass = function(day) {
-	// 	classes = ['day'];
-	// 	if(day.month() !== this.current.month()) {
-	// 		classes.push('other');
-	// 	} else if (today.isSame(day, 'day')) {
-	// 		classes.push('today');
-	// 	}
-	// 	return classes.join(' ');
-	// }
-
-	// Calendar.prototype.openDay = function(el) {
-	// 	let curDate = this.current.clone();
-	// 	let date = "0" + el.querySelector(".day-number").innerText;
-	// 	date = date.slice(-2);
-	// 	let month = "0" + (curDate.month() + 1);
-	// 	month = month.slice(-2);
-	// 	let year = curDate.year();
-	// 	console.log(year, month, date);
-	// 	flipCal(year, month, date);
-	// }
-
-	// Calendar.prototype.nextMonth = function() {
-	// 	this.current.add(1, 'months');
-	// 	this.next = true;
-	// 	this.draw();
-	// }
-
-	// Calendar.prototype.prevMonth = function() {
-	// 	this.current.subtract(1, 'months');
-	// 	this.next = false;
-	// 	this.draw();
-	// }
-
-	// window.Calendar = Calendar;
-
-	// function createElement(tagName, className, innerText) {
-	// 	var ele = document.createElement(tagName);
-	// 	if(className) {
-	// 		ele.className = className;
-	// 	}
-	// 	if(innerText) {
-	// 		ele.innerText = ele.textContent = innerText;
-	// 	}
-	// 	return ele;
-	// }
-}();
-
-!function() {
-
-	var details = new Details('#details');
-
-}();
+	detailsDiv.appendChild(detailsHeader);
+	detailsDiv.appendChild(detailsContent);
+	detailsEl.appendChild(detailsDiv);
+}

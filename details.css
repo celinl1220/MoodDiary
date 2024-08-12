@@ -7,14 +7,15 @@
 	--subHeaderText-color: rgb(45, 114, 178);
 	--regularText-color: rgb(104, 149, 197);
 
-	/*--tileBackground-color: rgb(128, 166, 206);
-
-	--border-color: rgb(217, 229, 240);
-	--inputBorder-color: rgb(80, 133, 188);
-
 	--buttonBackground-color: rgb(104, 149, 197);
 	--buttonHoverBackground-color: rgb(166, 189, 219);
 	--buttonText-color: rgb(217, 229, 240);
+
+	--border-color: rgb(217, 229, 240);
+
+	/*--tileBackground-color: rgb(128, 166, 206);
+
+	--inputBorder-color: rgb(80, 133, 188);
 
 	--headerText-color: rgb(8, 96, 168);
 	--subHeaderText-color: rgb(45, 114, 178);
@@ -37,6 +38,35 @@
 	line-height: 50px;
 	background: var(--header-background);
 	text-align: center;
+
+	display: flex;
+	justify-content: space-between;
+	align-items: center;	
+}
+
+#details .details-btn {
+	margin: 0 15px;
+	height: 30px;
+	width: 30px;
+	background: var(--buttonBackground-color);
+	border: 1px solid var(--border-color);
+	border-radius: 10%;
+
+	color: var(--buttonText-color);
+	font-size: 10px;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+#details .details-btn:hover {
+	cursor: pointer;
+	background: linear-gradient(var(--buttonHoverBackground-color), var(--buttonBackground-color));
+}
+
+#details .details-btn:active {
+	box-shadow: inset 0 0 10px var(--border-color);
 }
 
 .details-body {
