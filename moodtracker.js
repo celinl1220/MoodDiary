@@ -79,7 +79,7 @@ const flipCal = () => {
 	if (!dataOpen) {
 		selectDetails();
 	} else {
-		showDetails(dataOpen, yearOpen, monthOpen, dateOpen);
+		showDetails();
 	}
 	calendarWrapper.classList.add("flip");
 }

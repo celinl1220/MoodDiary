@@ -1,0 +1,26 @@
+:root {
+	--border-color: rgb(217, 229, 240);
+	--regularText-color: rgb(104, 149, 197);
+}
+
+.edit-body {
+	padding: 5px;
+	margin-top: 10px;
+}
+
+.edit-body .content-div span {
+	font-size: 15px;
+	color: var(--regularText-color);
+	border: 1px solid var(--border-color);
+	padding: 3px;
+}
+
+.edit-body .content-div span:hover {
+	cursor: pointer;
+	border: 1px solid var(--regularText-color);
+}
+
+.edit-body .content-div .selected {
+	background: var(--regularText-color);
+	color: var(--border-color);
+}

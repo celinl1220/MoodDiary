@@ -15,67 +15,67 @@ const monthsConv = {
 	12: "december"
 }
 
-const moodsConv = {
-	1: "amazing",
-	2: "good",
-	3: "ok",
-	4: "bad",
-	5: "horrible"
-}
+const moodOptions = ["amazing", "good", "ok", "bad", "horrible"]
 
-const selectDetails = () => {
-	// console.log("selecting...");
-	clearDetails();
-}
-
-const showDetails = (dataOpen) => {
-	createDetailsHeader(dataOpen);
-	createDetailsMood(dataOpen);
-	createDetails(dataOpen, "activities");
-	createDetails(dataOpen, "weather");
+const showDetails = () => {
+	createDetailsHeader("details");
+	createDetailsMood();
+	createDetails("activities");
+	createDetails("weather");
 }
 
 const clearDetails = () => {
 	detailsEl.innerHTML = "";
 }
 
-const createDetailsHeader = (dataOpen) => {
+const createDetailsHeader = (type) => {
 	let headerDiv = document.createElement("div");
 	headerDiv.className = "header";
 
 	let dateTitle = document.createElement("h1");
 	dateTitle.className = "date-open";
 	dateTitle.innerText = `${monthsConv[Number(monthOpen)]} ${dateOpen}, ${yearOpen}`;
-
+	
 	let backBtn = document.createElement("div");
 	backBtn.className = "details-btn";
 	backBtn.id = "back-btn";
 	backBtn.innerText = "back"; // replace with back arrow later?
-	backBtn.addEventListener("click", () => {
-		unFlipCal();
-		setTimeout(clearDetails, 1000); // wait for animation to finish to clear details
-	});
+	if (type === "details") {
+		backBtn.addEventListener("click", () => {
+			unFlipCal();
+			setTimeout(clearDetails, 1000); // wait for animation to finish to clear details
+		});
+	}
+	let rightBtn = document.createElement("div");
+	rightBtn.className = "details-btn";
 
-	let editBtn = document.createElement("div");
-	editBtn.className = "details-btn";
-	editBtn.id = "edit-btn";
-	editBtn.innerText = "edit";
-	editBtn.addEventListener("click", selectDetails);
+	if (type === "details") {
+		rightBtn.id = "edit-btn";
+		rightBtn.innerText = "edit";
+		rightBtn.removeEventListener("click", saveDetails);
+		rightBtn.addEventListener("click", selectDetails);
+	} else {
+		backBtn.classList.add("hide-btn");
+		rightBtn.id = "save-btn";
+		rightBtn.innerText = "save";
+		rightBtn.removeEventListener("click", selectDetails);
+		rightBtn.addEventListener("click", saveDetails);
+	}
 
 	headerDiv.appendChild(backBtn);
 	headerDiv.appendChild(dateTitle);
-	headerDiv.appendChild(editBtn);
+	headerDiv.appendChild(rightBtn);
 	detailsEl.appendChild(headerDiv);
 }
 
-const createDetailsMood = (dataOpen) => {
+const createDetailsMood = () => {
 	let moodDiv = document.createElement("div");
 	moodDiv.id = "mood"
 	moodDiv.className = "details-body";
-	let moodData = moodsConv[dataOpen["mood"]];
+	let moodData = moodOptions[dataOpen["mood"]];
 	let moodHeader = document.createElement("h2");
 	moodHeader.innerText = "mood";
-	let moodContent = document.createElement("p");
+	let moodContent = document.createElement("span");
 	moodContent.innerText = moodData;
 
 	moodDiv.appendChild(moodHeader);
@@ -83,7 +83,7 @@ const createDetailsMood = (dataOpen) => {
 	detailsEl.appendChild(moodDiv);
 }
 
-const createDetails = (dataOpen, type) => {
+const createDetails = (type) => {
 	let detailsDiv = document.createElement("div");
 	detailsDiv.id = type;
 	detailsDiv.className = "details-body";
