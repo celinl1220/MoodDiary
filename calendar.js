@@ -140,7 +140,14 @@
 	}
 
 	Calendar.prototype.openDay = function(el) {
-		flipCal(el, this.el);
+		let curDate = this.current.clone();
+		let date = "0" + el.querySelector(".day-number").innerText;
+		date = date.slice(-2);
+		let month = "0" + (curDate.month() + 1);
+		month = month.slice(-2);
+		let year = curDate.year();
+		console.log(year, month, date);
+		flipCal(year, month, date);
 	}
 
 	Calendar.prototype.nextMonth = function() {

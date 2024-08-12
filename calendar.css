@@ -45,7 +45,7 @@
   height: 100%;
 }
 
-.header {
+#calendar .header {
 	height: 50px;
 	width: 500px;
 	background: var(--header-background);
@@ -54,7 +54,7 @@
 	z-index: 100;
 }
 
-.header h1 {
+#calendar .header h1 {
 	margin: 0;
 	padding: 0;
 	font-size: 20px;
@@ -64,7 +64,7 @@
   color: var(--header-color);
 }
 
-.left, .right {
+#calendar .left, .right {
 	position: absolute;
 	width: 0px;
 	height: 0px;
@@ -74,13 +74,13 @@
 	cursor: pointer;
 }
 
-.left {
+#calendar .left {
 	border-width: 7.5px 10px 7.5px 0;
 	border-color: transparent var(--header-color) transparent transparent;
 	left: 20px;
 }
 
-.right {
+#calendar .right {
 	border-width: 7.5px 0 7.5px 10px;
 	border-color: transparent transparent transparent var(--header-color);
 	right: 20px;
