@@ -36,16 +36,26 @@ const createDetailsHeader = (type) => {
 	dateTitle.className = "date-open";
 	dateTitle.innerText = `${monthsConv[Number(monthOpen)]} ${dateOpen}, ${yearOpen}`;
 	
-	let backBtn = document.createElement("div");
-	backBtn.className = "details-btn";
-	backBtn.id = "back-btn";
-	backBtn.innerText = "back"; // replace with back arrow later?
+	let leftBtn = document.createElement("div");
+	leftBtn.className = "details-btn";
+	
 	if (type === "details") {
-		backBtn.addEventListener("click", () => {
+		leftBtn.id = "back-btn";
+		leftBtn.innerText = "back"; // replace with back arrow later?
+		leftBtn.addEventListener("click", () => {
 			unFlipCal();
-			setTimeout(clearDetails, 1000); // wait for animation to finish to clear details
+			setTimeout(clearDetails, 800); // wait for animation to finish to clear details
 		});
+	} else if (type === "edit") {
+		leftBtn.id = "cancel-btn";
+		leftBtn.innerText = "x"; // replace with back arrow later?
+		leftBtn.addEventListener("click", () => {
+			unFlipCal();
+			setTimeout(clearDetails, 800); // wait for animation to finish to clear details
+		});
+
 	}
+	
 	let rightBtn = document.createElement("div");
 	rightBtn.className = "details-btn";
 
@@ -55,14 +65,14 @@ const createDetailsHeader = (type) => {
 		rightBtn.removeEventListener("click", saveDetails);
 		rightBtn.addEventListener("click", selectDetails);
 	} else {
-		backBtn.classList.add("hide-btn");
+		// leftBtn.classList.add("hide-btn");
 		rightBtn.id = "save-btn";
 		rightBtn.innerText = "save";
 		rightBtn.removeEventListener("click", selectDetails);
 		rightBtn.addEventListener("click", saveDetails);
 	}
 
-	headerDiv.appendChild(backBtn);
+	headerDiv.appendChild(leftBtn);
 	headerDiv.appendChild(dateTitle);
 	headerDiv.appendChild(rightBtn);
 	detailsEl.appendChild(headerDiv);

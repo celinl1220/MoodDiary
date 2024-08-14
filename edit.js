@@ -1,8 +1,11 @@
 const activitiesOptions = ["family", "friends", "sports", "studying", "working", "cooking", "meditation", "reading", "TV", "movies"]
 const weatherOptions = ["sun", "clouds", "light rain", "heavy rain", "thunderstorm", "snow"]
 
+var moodSel = 0;
+var activitiesSel = [];
+var weatherSel = [];
+
 const selectDetails = () => {
-	// console.log("selecting...");
 	clearDetails();
 	createDetailsHeader("edit");
 	createEdit("mood");
@@ -16,8 +19,10 @@ const saveDetails = () => {
 
 const selectEl = (el) => {
 	let clickedEl = el.target
-	clickedEl.classList.remove("not-selected");
-	clickedEl.classList.add("selected");
+	clickedEl.classList.toggle("selected");
+	console.log(clickedEl);
+	
+
 }
 
 const createEdit = (type) => {
@@ -41,7 +46,9 @@ const createEdit = (type) => {
 	}
 	editData.forEach((el) => {
 		let element = document.createElement("span");
-		element.className = "not-selected";
+		// element.className = "not-selected";
+		element.classList.add(type);
+		element.id = el;
 		element.innerText = el;
 		element.addEventListener("click", selectEl);
 		editContent.appendChild(element);

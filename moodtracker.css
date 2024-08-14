@@ -74,7 +74,7 @@ p {
 }
 
 #calendar-wrapper .view {
-	transition: transform 1s linear;
+	transition: transform .8s ease-in-out;
  	backface-visibility: hidden;
  	position: absolute;
 }
