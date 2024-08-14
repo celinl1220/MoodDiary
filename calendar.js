@@ -38,7 +38,7 @@
 		  this.el.appendChild(this.header);
 		}
 
-		this.title.innerHTML = this.current.format('MMMM YYYY');
+		this.title.innerHTML = this.current.format('MMMM YYYY').toLowerCase();
 	}
 
 	Calendar.prototype.drawMonth = function() {
@@ -133,6 +133,11 @@
 		classes = ['day'];
 		if(day.month() !== this.current.month()) {
 			classes.push('other');
+			if(day.month() === this.current.month()-1) {
+				classes.push('prev');
+			} else if(day.month() === this.current.month()+1) {
+				classes.push('next');
+			}
 		} else if (today.isSame(day, 'day')) {
 			classes.push('today');
 		}
@@ -143,7 +148,13 @@
 		let curDate = this.current.clone();
 		dateOpen = "0" + el.querySelector(".day-number").innerText;
 		dateOpen = dateOpen.slice(-2);
-		monthOpen = "0" + (curDate.month() + 1);
+		if (el.classList.contains("prev")) {
+			monthOpen = "0" + curDate.month();
+		} else if (el.classList.contains("next")) {
+			monthOpen = "0" + (curDate.month() + 2);
+		} else {
+			monthOpen = "0" + (curDate.month() + 1);
+		}
 		monthOpen = monthOpen.slice(-2);
 		yearOpen = curDate.year();
 

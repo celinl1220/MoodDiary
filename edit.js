@@ -1,28 +1,36 @@
-const activitiesOptions = ["family", "friends", "sports", "studying", "working", "cooking", "meditation", "reading", "TV", "movies"]
-const weatherOptions = ["sun", "clouds", "light rain", "heavy rain", "thunderstorm", "snow"]
-
-var moodSel = 0;
-var activitiesSel = [];
-var weatherSel = [];
-
 const selectDetails = () => {
 	clearDetails();
 	createDetailsHeader("edit");
-	createEdit("mood");
-	createEdit("activities");
-	createEdit("weather");
+	sections.forEach((sect) => createEdit(sect));
 }
 
 const saveDetails = () => {
-	console.log("saving...");
+	let dataArr = [];
+	sections.forEach((sect) => {
+		const sectArr = saveType(sect);
+		dataArr.push(sectArr);
+		localStorage.setItem(`mood-diary-user-data-${yearOpen}${monthOpen}${dateOpen}-${sect}`, sectArr);
+	});
+
+	// console.log(`${yearOpen}${monthOpen}${dateOpen}: ${dataArr}`);
+
+	unFlipCal();
+}
+
+const saveType = (type) => {
+	// console.log(`saving ${type}...`);
+	const sel = document.querySelectorAll(`.${type}.selected`);
+	let arr = [];
+	sel.forEach((el) => {
+		arr.push(el.id);
+	});
+	return arr;
 }
 
 const selectEl = (el) => {
 	let clickedEl = el.target
 	clickedEl.classList.toggle("selected");
-	console.log(clickedEl);
-	
-
+	// console.log(clickedEl);
 }
 
 const createEdit = (type) => {
@@ -37,16 +45,10 @@ const createEdit = (type) => {
 	editContent.className = "content-div";
 
 	let editData = [];
-	if (type === "mood") {
-		editData = moodOptions;
-	} else if (type === "activities") {
-		editData = activitiesOptions;
-	} else if (type === "weather") {
-		editData = weatherOptions;
-	}
+	let sectionIndex = sections.findIndex((el) => el === type);
+	editData = options[sectionIndex];
 	editData.forEach((el) => {
 		let element = document.createElement("span");
-		// element.className = "not-selected";
 		element.classList.add(type);
 		element.id = el;
 		element.innerText = el;

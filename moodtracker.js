@@ -17,18 +17,17 @@ var yearOpen = "";
 var monthOpen = "";
 var dateOpen = "";
 
-var userName = localStorage.getItem("user-name") || "";
-//localStorage.setItem("high-score", highScore);
+var userName = localStorage.getItem("mood-diary-user-name") || "";
 
-// // var data = localStorage.getItem("user-data") || {};
-var data = {
-	20240812: {
-		mood: 1,
-		activities: ["swimming", "running", "friends", "family", "swimming", "running", "friends", "family", "swimming", "running", "friends", "family", "swimming", "running", "friends", "family", "swimming", "running", "friends", "family"],
-		weather: ["sunny"]
-	}
-};
-var dataOpen = {};
+var dataOpen = [];
+
+const refreshData = () => {
+	dataOpen = [];
+	sections.forEach(sect => {
+		let toPush = localStorage.getItem(`mood-diary-user-data-${yearOpen}${monthOpen}${dateOpen}-${sect}`);
+		dataOpen.push(toPush || "");
+	});
+}
 
 const refreshDate = () => {
 	today = new Date();
@@ -74,9 +73,9 @@ const initTracker = () => {
 }
 
 const flipCal = () => {
-	// dataOpen = localStorage.getItem(`${yearNum}${monthNum}${dateNum}`) || null;
-	dataOpen = data[`${yearOpen}${monthOpen}${dateOpen}`];
-	if (!dataOpen) {
+	refreshData();
+	console.log(dataOpen);
+	if (dataOpen.every(el => el === "")) {
 		selectDetails();
 	} else {
 		showDetails();
@@ -86,6 +85,7 @@ const flipCal = () => {
 
 const unFlipCal = () => {
 	calendarWrapper.classList.remove("flip");
+	setTimeout(clearDetails, 800); // wait for animation to finish to clear details
 }
 
 initTracker();

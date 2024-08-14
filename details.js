@@ -15,11 +15,12 @@ const monthsConv = {
 	12: "december"
 }
 
-const moodOptions = ["amazing", "good", "ok", "bad", "horrible"]
+const sections = ["mood", "activities", "weather"];
+const options = [["amazing", "good", "ok", "bad", "horrible"], ["family", "friends", "sports", "studying", "working", "cooking", "meditation", "reading", "TV", "movies"], ["sun", "clouds", "light rain", "heavy rain", "thunderstorm", "snow"]];
 
 const showDetails = () => {
 	createDetailsHeader("details");
-	createDetailsMood();
+	createDetails("mood");
 	createDetails("activities");
 	createDetails("weather");
 }
@@ -42,20 +43,14 @@ const createDetailsHeader = (type) => {
 	if (type === "details") {
 		leftBtn.id = "back-btn";
 		leftBtn.innerText = "back"; // replace with back arrow later?
-		leftBtn.addEventListener("click", () => {
-			unFlipCal();
-			setTimeout(clearDetails, 800); // wait for animation to finish to clear details
-		});
+		leftBtn.addEventListener("click", unFlipCal);
 	} else if (type === "edit") {
 		leftBtn.id = "cancel-btn";
 		leftBtn.innerText = "x"; // replace with back arrow later?
-		leftBtn.addEventListener("click", () => {
-			unFlipCal();
-			setTimeout(clearDetails, 800); // wait for animation to finish to clear details
-		});
+		leftBtn.addEventListener("click", unFlipCal);
 
 	}
-	
+
 	let rightBtn = document.createElement("div");
 	rightBtn.className = "details-btn";
 
@@ -77,27 +72,15 @@ const createDetailsHeader = (type) => {
 	headerDiv.appendChild(rightBtn);
 	detailsEl.appendChild(headerDiv);
 }
-
-const createDetailsMood = () => {
-	let moodDiv = document.createElement("div");
-	moodDiv.id = "mood"
-	moodDiv.className = "details-body";
-	let moodData = moodOptions[dataOpen["mood"]];
-	let moodHeader = document.createElement("h2");
-	moodHeader.innerText = "mood";
-	let moodContent = document.createElement("span");
-	moodContent.innerText = moodData;
-
-	moodDiv.appendChild(moodHeader);
-	moodDiv.appendChild(moodContent);
-	detailsEl.appendChild(moodDiv);
-}
-
 const createDetails = (type) => {
 	let detailsDiv = document.createElement("div");
 	detailsDiv.id = type;
 	detailsDiv.className = "details-body";
-	let detailsData = dataOpen[type];
+
+	refreshData();
+	let sectionIndex = sections.findIndex((el) => el === type);
+	let detailsData = dataOpen[sectionIndex].split(",");
+	console.log("detailsData:", detailsData);
 	let detailsHeader = document.createElement("h2");
 	detailsHeader.innerText = type;
 
