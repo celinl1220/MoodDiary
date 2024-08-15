@@ -63,6 +63,10 @@ p {
 	color: var(--regularText-color);
 }
 
+#main-wrapper {
+	background: var(--background-color);
+}
+
 #calendar-wrapper {
 	height: 405px;
 	width: 500px;

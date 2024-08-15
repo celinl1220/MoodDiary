@@ -28,9 +28,7 @@ const saveType = (type) => {
 }
 
 const selectEl = (el) => {
-	let clickedEl = el.target
-	clickedEl.classList.toggle("selected");
-	// console.log(clickedEl);
+	el.classList.toggle("selected");
 }
 
 const createEdit = (type) => {
@@ -44,17 +42,25 @@ const createEdit = (type) => {
 	let editContent = document.createElement("div");
 	editContent.className = "content-div";
 
+
 	let editData = [];
 	let sectionIndex = sections.findIndex((el) => el === type);
+	refreshData();
+	let detailsData = dataOpen[sectionIndex].split(",");
 	editData = options[sectionIndex];
 	editData.forEach((el) => {
 		let element = document.createElement("span");
 		element.classList.add(type);
 		element.id = el;
 		element.innerText = el;
-		element.addEventListener("click", selectEl);
+		element.addEventListener("click", (e) => {
+			selectEl(e.target)
+		});
 		editContent.appendChild(element);
-	})
+		if (detailsData.includes(el)) {
+			selectEl(element);
+		}
+	});
 
 	editDiv.appendChild(editHeader);
 	editDiv.appendChild(editContent);
