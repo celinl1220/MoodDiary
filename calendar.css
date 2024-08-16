@@ -10,11 +10,6 @@
 
   --otherDay-color: rgb(104, 149, 197);
   --today-color: rgb(8, 96, 168);
-
-  --details-background: white;
-  --eventEmpty-color: black;
-  --happy-background: yellow;
-  --sad-background: lightblue;
 }
 
 #calendar *, *:before, *:after {

@@ -42,14 +42,12 @@ const createDetailsHeader = (type) => {
 	
 	if (type === "details") {
 		leftBtn.id = "back-btn";
-		leftBtn.innerText = "back"; // replace with back arrow later?
-		leftBtn.addEventListener("click", unFlipCal);
+		leftBtn.innerText = "<";
 	} else if (type === "edit") {
 		leftBtn.id = "cancel-btn";
-		leftBtn.innerText = "x"; // replace with back arrow later?
-		leftBtn.addEventListener("click", unFlipCal);
-
+		leftBtn.innerText = "x";
 	}
+	leftBtn.addEventListener("click", unFlipCal);
 
 	let rightBtn = document.createElement("div");
 	rightBtn.className = "details-btn";

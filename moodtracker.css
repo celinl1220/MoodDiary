@@ -6,7 +6,7 @@
 	--border-color: rgb(217, 229, 240);
 	--inputBorder-color: rgb(80, 133, 188);
 
-	--buttonBackground-color: rgb(104, 149, 197);
+	--buttonBackground-color: rgb(128, 166, 206);
 	--buttonHoverBackground-color: rgb(166, 189, 219);
 	--buttonText-color: rgb(217, 229, 240);
 
@@ -32,6 +32,7 @@
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+	gap: 15px;
 
 	position: absolute;
 }
@@ -61,6 +62,35 @@ h2 {
 
 p {
 	color: var(--regularText-color);
+}
+
+#nav-bar {
+	width: 500px;
+	height: 50px;
+	background: var(--mainBackground-color);
+
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	align-items: center;
+}
+
+#nav-bar button {
+	width: 80px;
+	height: 30px;
+
+	color: var(--buttonText-color);
+	background: var(--buttonBackground-color);
+	border: 1px solid var(--border-color);
+}
+
+#nav-bar button:hover {
+	background: linear-gradient(var(--buttonHoverBackground-color), var(--buttonBackground-color));
+	cursor: pointer;
+}
+
+#nav-bar button:active, #nav-bar .active-btn {
+	box-shadow: inset 0 0 10px var(--border-color);
 }
 
 #main-wrapper {

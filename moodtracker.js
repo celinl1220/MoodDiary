@@ -1,6 +1,9 @@
 const homeWrapper = document.getElementById("home-wrapper");
 const calendarWrapper = document.getElementById("calendar-wrapper");
-const selectWrapper = document.getElementById("select-wrapper");
+const summaryWrapper = document.getElementById("summary-wrapper");
+
+const calBtn = document.getElementById("cal-btn");
+const sumBtn = document.getElementById("sum-btn");
 
 const greetingEl = document.getElementById("greeting");
 
@@ -44,6 +47,7 @@ const showHome = () => {
 
 	homeWrapper.removeAttribute("style");
 	calendarWrapper.style.display = "none";
+	summaryWrapper.style.display = "none";
 
 	let greetingOpen = "";
 	if (hour < 12) { // AM
@@ -57,15 +61,35 @@ const showHome = () => {
 
 	document.addEventListener("keyup", showCalendar);
 	document.addEventListener("click", showCalendar);
+
+	calBtn.addEventListener("click", showCalendar);
+	sumBtn.addEventListener("click", showSummary);
 }
 
 const showCalendar = () => {
 	document.removeEventListener("keyup", showCalendar);
 	document.removeEventListener("click", showCalendar);
 
+	clearSummary();
+
 	homeWrapper.classList.add("hide-home");
 	// homeWrapper.style.display = "none";
 	calendarWrapper.removeAttribute("style");
+	summaryWrapper.style.display = "none";
+
+	sumBtn.classList.remove("active-btn");
+	calBtn.classList.add("active-btn");
+}
+
+const showSummary = () => {
+	homeWrapper.style.display = "none";
+	calendarWrapper.style.display = "none";
+	summaryWrapper.removeAttribute("style");
+
+	calBtn.classList.remove("active-btn");
+	sumBtn.classList.add("active-btn");
+
+	createSummaryHeader();
 }
 
 const initTracker = () => {

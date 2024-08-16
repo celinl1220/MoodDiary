@@ -1,0 +1,42 @@
+:root {
+	--background-color: rgb(191, 209, 229);
+	--mainBackground-color: rgb(166, 189, 219);
+	--tileBackground-color: rgb(128, 166, 206);
+
+	--border-color: rgb(217, 229, 240);
+	--inputBorder-color: rgb(80, 133, 188);
+
+	--buttonBackground-color: rgb(128, 166, 206);
+	--buttonHoverBackground-color: rgb(166, 189, 219);
+	--buttonText-color: rgb(217, 229, 240);
+
+	--headerText-color: rgb(8, 96, 168);
+	--subHeaderText-color: rgb(45, 114, 178);
+	--regularText-color: rgb(104, 149, 197);
+	--inputText-color: rgb(80, 133, 188);
+}
+
+#summary-wrapper {
+	height: 405px;
+	width: 500px;
+	background: var(--mainBackground-color);
+	overflow: hidden;
+ 	margin: 0 auto;
+ 	border: var(--border-color);
+
+ 	position: relative;
+ 	transform-style: preserve-3d;
+}
+
+#summary-wrapper .header {
+	height: 50px;
+	line-height: 50px;
+	background: var(--header-background);
+	text-align: center;
+}
+
+#summary-wrapper .header h1 {
+	font-size: 20px;
+	font-weight: 100;
+	color: var(--header-color);
+}

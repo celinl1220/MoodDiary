@@ -7,6 +7,7 @@
 		<link rel="stylesheet" href="./calendar.css" />
 		<link rel="stylesheet" href="./details.css" />
 		<link rel="stylesheet" href="./edit.css" />
+		<link rel="stylesheet" href="./summary.css" />
 		<script src="https://kit.fontawesome.com/d00ee7135d.js" crossorigin="anonymous"></script>
 		<title>my mood tracker</title>
 	</head>
@@ -17,15 +18,23 @@
 			<p>press any button to continue...</p>
 		</div>
 		<div class="wrapper" id="main-wrapper">
-			<div id="calendar-wrapper">
-				<div class="view front-view" id="calendar"></div>
-				<div class="view back-view" id="details"></div>
+			<div id="nav-bar">
+				<button id="cal-btn">calendar</button>
+				<button id="sum-btn">summary</button>
+			</div>
+			<div id="content-wrapper">
+				<div id="calendar-wrapper">
+					<div class="view front-view" id="calendar"></div>
+					<div class="view back-view" id="details"></div>
+				</div>
+				<div id="summary-wrapper"></div>
 			</div>
 		</div>
 		<script type="text/JavaScript" src="./Moment.js"></script>
 		<script src="./calendar.js"></script>
 		<script src="./details.js"></script>
 		<script src="./edit.js"></script>
+		<script src="./summary.js"></script>
 		<script src="./moodtracker.js"></script>
 	</body>
 </html>
