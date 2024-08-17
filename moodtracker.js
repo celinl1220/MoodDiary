@@ -90,6 +90,7 @@ const showSummary = () => {
 	sumBtn.classList.add("active-btn");
 
 	createSummaryHeader();
+	getSummaryData()
 }
 
 const initTracker = () => {
