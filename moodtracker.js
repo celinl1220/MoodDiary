@@ -70,8 +70,6 @@ const showCalendar = () => {
 	document.removeEventListener("keyup", showCalendar);
 	document.removeEventListener("click", showCalendar);
 
-	clearSummary();
-
 	homeWrapper.classList.add("hide-home");
 	// homeWrapper.style.display = "none";
 	calendarWrapper.removeAttribute("style");
@@ -89,8 +87,11 @@ const showSummary = () => {
 	calBtn.classList.remove("active-btn");
 	sumBtn.classList.add("active-btn");
 
+	clearSummary();
 	createSummaryHeader();
 	getSummaryData()
+	const mostPositiveActivities = getMostPositiveActivities();
+	console.log(mostPositiveActivities);
 }
 
 const initTracker = () => {

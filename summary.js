@@ -35,9 +35,45 @@ const getSummaryData = () => {
 		}
 	});
 
-	console.log(summaryData);
+	// console.log(summaryData);
 }
 
-const getMostPositiveActivity = () => {
-	
+const getMostPositiveActivities = () => {
+	const moodOptions = options[0];
+	const activityOptions = options[1];
+	let activityCount = Array(activityOptions.length).fill(0);
+	const keys = Object.keys(summaryData);
+
+	let maxInd = [];
+	let maxVal = 0;
+
+	for (let i = 0; i < keys.length; i++) {
+		const curDate = keys[i];
+		const curData = summaryData[curDate];
+		// if positive mood for that date
+		if (curData.mood.includes(moodOptions[0]) || curData.mood.includes(moodOptions[1])) {
+			curData.activities.forEach((activity) => {
+				let activityIndex = activityOptions.findIndex((op) => op === activity);
+				activityCount[activityIndex] += 1;
+				let curCount = activityCount[activityIndex];
+				if (curCount > maxVal) {
+					maxVal = curCount;
+					maxInd = [activityIndex];
+				} else if (curCount === maxVal) {
+					maxInd.push(activityIndex);
+				}
+			})
+		}
+	}
+
+	// console.log(activityOptions);
+	// console.log(activityCount);
+	// console.log(maxVal);
+	// console.log(maxInd);
+
+	let maxActivities = []
+	maxInd.forEach((index) => {
+		maxActivities.push(activityOptions[index]);
+	});
+	return maxActivities;
 }
