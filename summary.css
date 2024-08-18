@@ -40,3 +40,29 @@
 	font-weight: 100;
 	color: var(--header-color);
 }
+
+.summary-body {
+	padding: 5px;
+	margin-top: 10px;
+}
+
+#summary-wrapper h2 {
+	line-height: 30px;
+	font-size: 20px;
+	font-weight: 100;
+	color: var(--subHeaderText-color);
+}
+
+#summary-wrapper .summary-body span {
+	font-size: 15px;
+	color: var(--regularText-color);
+}
+
+#summary-wrapper .content-div {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+	gap: 5px;
+}

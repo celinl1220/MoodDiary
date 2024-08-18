@@ -90,7 +90,10 @@ const showSummary = () => {
 	clearSummary();
 	createSummaryHeader();
 	getSummaryData()
-	const mostPositiveActivities = getMostPositiveActivities();
+	const mostPositiveActivities = getPosNegActivities(0);
+	const mostNegativeActivities = getPosNegActivities(1);
+	createStat("most positive activity", mostPositiveActivities);
+	createStat("most negative activity", mostNegativeActivities);
 	console.log(mostPositiveActivities);
 }
 

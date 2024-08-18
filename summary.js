@@ -38,8 +38,14 @@ const getSummaryData = () => {
 	// console.log(summaryData);
 }
 
-const getMostPositiveActivities = () => {
+const getPosNegActivities = (posNeg) => {
 	const moodOptions = options[0];
+	let moodComp = [];
+	if (posNeg === 0) { // get positive activities
+		moodComp = [options[0][0], options[0][1]];
+	} else if (posNeg === 1) {
+		moodComp = [options[0][3], options[0][4]];
+	}
 	const activityOptions = options[1];
 	let activityCount = Array(activityOptions.length).fill(0);
 	const keys = Object.keys(summaryData);
@@ -51,7 +57,7 @@ const getMostPositiveActivities = () => {
 		const curDate = keys[i];
 		const curData = summaryData[curDate];
 		// if positive mood for that date
-		if (curData.mood.includes(moodOptions[0]) || curData.mood.includes(moodOptions[1])) {
+		if (curData.mood.some(mood => moodComp.includes(mood))) {
 			curData.activities.forEach((activity) => {
 				let activityIndex = activityOptions.findIndex((op) => op === activity);
 				activityCount[activityIndex] += 1;
@@ -66,14 +72,34 @@ const getMostPositiveActivities = () => {
 		}
 	}
 
-	// console.log(activityOptions);
-	// console.log(activityCount);
-	// console.log(maxVal);
-	// console.log(maxInd);
-
 	let maxActivities = []
 	maxInd.forEach((index) => {
 		maxActivities.push(activityOptions[index]);
 	});
 	return maxActivities;
+}
+
+const createStat = (statName, statData) => {
+	if (!statData.length) {
+		statData = ["N/A"];
+	}
+
+	let statDiv = document.createElement("div");
+	statDiv.id = statName;
+	statDiv.className = "summary-body";
+
+	let statHeader = document.createElement("h2");
+	statHeader.innerText = statName;
+
+	let statContent = document.createElement("div");
+	statContent.className = "content-div"
+	statData.forEach((el) => {
+		let element = document.createElement("span");
+		element.innerText = el;
+		statContent.appendChild(element);
+	})
+
+	statDiv.appendChild(statHeader);
+	statDiv.appendChild(statContent);
+	summaryWrapper.appendChild(statDiv);
 }
