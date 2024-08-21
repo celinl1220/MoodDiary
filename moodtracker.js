@@ -90,10 +90,14 @@ const showSummary = () => {
 	clearSummary();
 	createSummaryHeader();
 	getSummaryData()
-	const mostPositiveActivities = getPosNegActivities(0);
-	const mostNegativeActivities = getPosNegActivities(1);
+	const mostPositiveActivities = getPosNeg(0, "activities");
+	const mostNegativeActivities = getPosNeg(1, "activities");
 	createStat("most positive activity", mostPositiveActivities);
 	createStat("most negative activity", mostNegativeActivities);
+	const mostPositiveWeather = getPosNeg(0, "weather");
+	const mostNegativeWeather = getPosNeg(1, "weather");
+	createStat("most positive weather", mostPositiveWeather);
+	createStat("most negative weather", mostNegativeWeather);
 	console.log(mostPositiveActivities);
 }
 

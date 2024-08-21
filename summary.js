@@ -38,16 +38,16 @@ const getSummaryData = () => {
 	// console.log(summaryData);
 }
 
-const getPosNegActivities = (posNeg) => {
+const getPosNeg = (posNeg, type) => {
 	const moodOptions = options[0];
-	let moodComp = [];
-	if (posNeg === 0) { // get positive activities
-		moodComp = [options[0][0], options[0][1]];
-	} else if (posNeg === 1) {
-		moodComp = [options[0][3], options[0][4]];
-	}
-	const activityOptions = options[1];
-	let activityCount = Array(activityOptions.length).fill(0);
+
+	let moodComp = posNeg ? [options[0][3], options[0][4]] : [options[0][0], options[0][1]];
+
+	const typeOptions = type==="activities" ? options[1] : options[2];
+
+	console.log("typeOptions:", typeOptions);
+
+	let typeCount = Array(typeOptions.length).fill(0);
 	const keys = Object.keys(summaryData);
 
 	let maxInd = [];
@@ -56,17 +56,18 @@ const getPosNegActivities = (posNeg) => {
 	for (let i = 0; i < keys.length; i++) {
 		const curDate = keys[i];
 		const curData = summaryData[curDate];
+		const curType = type==="activities" ? curData.activities : curData.weather;
 		// if positive mood for that date
 		if (curData.mood.some(mood => moodComp.includes(mood))) {
-			curData.activities.forEach((activity) => {
-				let activityIndex = activityOptions.findIndex((op) => op === activity);
-				activityCount[activityIndex] += 1;
-				let curCount = activityCount[activityIndex];
+			curType.forEach((type) => {
+				let typeIndex = typeOptions.findIndex((op) => op === type);
+				typeCount[typeIndex] += 1;
+				let curCount = typeCount[typeIndex];
 				if (curCount > maxVal) {
 					maxVal = curCount;
-					maxInd = [activityIndex];
+					maxInd = [typeIndex];
 				} else if (curCount === maxVal) {
-					maxInd.push(activityIndex);
+					maxInd.push(typeIndex);
 				}
 			})
 		}
@@ -74,14 +75,14 @@ const getPosNegActivities = (posNeg) => {
 
 	let maxActivities = []
 	maxInd.forEach((index) => {
-		maxActivities.push(activityOptions[index]);
+		maxActivities.push(typeOptions[index]);
 	});
 	return maxActivities;
 }
 
 const createStat = (statName, statData) => {
 	if (!statData.length) {
-		statData = ["N/A"];
+		statData = ["n/a"];
 	}
 
 	let statDiv = document.createElement("div");
