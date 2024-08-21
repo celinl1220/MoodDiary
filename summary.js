@@ -1,5 +1,7 @@
 const dataPrefix = "mood-diary-user-data-"; // string that all data stored in localStorage start with
 
+const moodOptions = options[0];
+
 const createSummaryHeader = () => {
 	let headerDiv = document.createElement("div");
 	headerDiv.className = "header";
@@ -39,8 +41,6 @@ const getSummaryData = () => {
 }
 
 const getPosNeg = (posNeg, type) => {
-	const moodOptions = options[0];
-
 	let moodComp = posNeg ? [options[0][3], options[0][4]] : [options[0][0], options[0][1]];
 
 	const typeOptions = type==="activities" ? options[1] : options[2];
@@ -57,7 +57,6 @@ const getPosNeg = (posNeg, type) => {
 		const curDate = keys[i];
 		const curData = summaryData[curDate];
 		const curType = type==="activities" ? curData.activities : curData.weather;
-		// if positive mood for that date
 		if (curData.mood.some(mood => moodComp.includes(mood))) {
 			curType.forEach((type) => {
 				let typeIndex = typeOptions.findIndex((op) => op === type);
@@ -78,6 +77,56 @@ const getPosNeg = (posNeg, type) => {
 		maxActivities.push(typeOptions[index]);
 	});
 	return maxActivities;
+}
+
+const consecDates = (cur, prev) => {
+	let curMomFormatted = moment(cur, "YYYYMMDD").format("YYYYMMDD");
+	let prevMom = moment(prev, "YYYYMMDD");
+	// console.log("prev:", prevMom.calendar());
+	let checkMomFormatted = prevMom.add(1, 'days').format("YYYYMMDD");
+	// console.log("cur:", curMomFormatted);
+	// console.log("check:", checkMomFormatted);
+	return curMomFormatted === checkMomFormatted;
+} 
+
+const getLongestPosNeg = (posNeg) => {
+	let moodComp = posNeg ? [options[0][3], options[0][4]] : [options[0][0], options[0][1]];
+
+	const keys = Object.keys(summaryData).sort((a,b) => a-b);
+	console.log(summaryData);
+
+	// let maxInd = [];
+	let maxStreakStart = 0;
+	let maxStreakEnd = 0;
+	let maxStreak = 0;
+	let curStreak = 0;
+
+	let prevDate = 0;
+	let curDate = 0;
+
+	for (let i = 0; i < keys.length; i++) {
+		curDate = keys[i];
+		const curData = summaryData[curDate];
+		// console.log("prev:", prevDate, "cur:", curDate);
+		// console.log(consecDates(curDate, prevDate));
+		if (curData.mood.some(mood => moodComp.includes(mood))) { // if correct mood
+			if(curStreak === 0) { // if no streak yet
+				maxStreakStart = curDate; // set max streak start date
+				curStreak = 1; // set current streak to 1
+			} else if (consecDates(curDate, prevDate)) { // if streak already exists and is next day
+				curStreak++; // increment streak
+				if(curStreak > maxStreak) { // if current streak is longer than stored max streak
+					maxStreak = curStreak; // set max streak to current streak
+					maxStreakEnd = curDate; // set max streak end date to current date
+				}
+			}
+		} else { // if not correct mood
+			curStreak = 0; // reset current streak to 0
+		}
+		prevDate = curDate;
+	}
+
+	return maxStreak, maxStreakStart, maxStreakEnd;
 }
 
 const createStat = (statName, statData) => {

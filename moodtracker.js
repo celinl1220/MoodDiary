@@ -90,15 +90,21 @@ const showSummary = () => {
 	clearSummary();
 	createSummaryHeader();
 	getSummaryData()
+
 	const mostPositiveActivities = getPosNeg(0, "activities");
 	const mostNegativeActivities = getPosNeg(1, "activities");
 	createStat("most positive activity", mostPositiveActivities);
 	createStat("most negative activity", mostNegativeActivities);
+
 	const mostPositiveWeather = getPosNeg(0, "weather");
 	const mostNegativeWeather = getPosNeg(1, "weather");
 	createStat("most positive weather", mostPositiveWeather);
 	createStat("most negative weather", mostNegativeWeather);
-	console.log(mostPositiveActivities);
+
+	const longestPositiveStreak = getLongestPosNeg(0);
+	const longestNegativeStreak = getLongestPosNeg(1);
+	createStat("longest positive streak", [longestPositiveStreak[0]]);
+	createStat("longest negative streak", [longestNegativeStreak[0]]);
 }
 
 const initTracker = () => {
