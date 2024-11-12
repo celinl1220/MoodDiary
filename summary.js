@@ -140,6 +140,7 @@ const getLongestPosNeg = (posNeg) => {
 		}
 		prevDate = curDate;
 	}
+	console.log("type:", typeof maxStreakStart);
 	console.log("max:", [maxStreak, formatDate(maxStreakStart), formatDate(maxStreakEnd)]);
 	return [maxStreak, formatDate(maxStreakStart), formatDate(maxStreakEnd)];
 }
