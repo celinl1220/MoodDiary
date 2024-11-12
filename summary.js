@@ -93,10 +93,10 @@ const consecDates = (cur, prev) => {
 } 
 
 const formatDate = (date) => {
-	console.log("type:", typeof date);
-	const yyyy = date.substring(0, 4);
-	const mm = date.substring(4, 6);
-	const dd = date.substring(6);
+	const dateStr = date.toString();
+	const yyyy = dateStr.substring(0, 4);
+	const mm = dateStr.substring(4, 6);
+	const dd = dateStr.substring(6);
 	return mm + "/" + dd + "/" + yyyy;
 
 }
@@ -141,8 +141,6 @@ const getLongestPosNeg = (posNeg) => {
 		}
 		prevDate = curDate;
 	}
-	console.log("here");
-	console.log("type:", typeof maxStreakStart);
 	console.log("max:", [maxStreak, formatDate(maxStreakStart), formatDate(maxStreakEnd)]);
 	return [maxStreak, formatDate(maxStreakStart), formatDate(maxStreakEnd)];
 }
