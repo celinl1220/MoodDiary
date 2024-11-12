@@ -65,7 +65,7 @@
 	color: var(--subHeaderText-color);
 }
 
-#summary-wrapper .summary-body .content-div {
+.summary-body-wrapper .summary-body .content-div {
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
@@ -74,7 +74,7 @@
 	gap: 5px;
 }
 
-#summary-wrapper .summary-body span {
+.summary-body-wrapper .summary-body span {
 	font-size: 15px;
 	color: var(--regularText-color);
 }

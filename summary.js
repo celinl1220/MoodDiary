@@ -92,13 +92,13 @@ const consecDates = (cur, prev) => {
 	return curMomFormatted === checkMomFormatted;
 } 
 
-// const formatDate = (date) => {
-// 	const yyyy = date.substring(0, 4);
-// 	const mm = date.substring(4, 6);
-// 	const dd = date.substring(6);
-// 	return mm + "/" + dd + "/" + yyyy;
+const formatDate = (date) => {
+	const yyyy = date.substring(0, 4);
+	const mm = date.substring(4, 6);
+	const dd = date.substring(6);
+	return mm + "/" + dd + "/" + yyyy;
 
-// }
+}
 
 const getLongestPosNeg = (posNeg) => {
 	let moodComp = posNeg ? [options[0][3], options[0][4]] : [options[0][0], options[0][1]];
@@ -140,7 +140,7 @@ const getLongestPosNeg = (posNeg) => {
 		}
 		prevDate = curDate;
 	}
-	console.log("max:", [maxStreak, maxStreakStart.format("MM/DD/YYYY"), maxStreakEnd.format("MM/DD/YYYY"));
+	console.log("max:", [maxStreak, formatDate(maxStreakStart), formatDate(maxStreakEnd)]);
 	return [maxStreak, formatDate(maxStreakStart), formatDate(maxStreakEnd)];
 }
 
