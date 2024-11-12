@@ -105,6 +105,7 @@ const showSummary = () => {
 	const maxPositiveStreak = getLongestPosNeg(0);
 	const maxNegativeStreak = getLongestPosNeg(1);
 	let maxPositiveStreakArr = [];
+	console.log("maxpos:", maxPositiveStreak[0]);
 	if (maxPositiveStreak[0] > 0) {
 		maxPositiveStreakArr = [maxPositiveStreak[0] + " (" + maxPositiveStreak[1] + " - " + maxPositiveStreak[2] + ")"];
 	}

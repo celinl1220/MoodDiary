@@ -18,7 +18,7 @@ const createSummaryHeader = () => {
 }
 
 const clearSummary = () => {
-	summaryWrapper.innerHTML = "";
+	summaryBodyWrapper.innerHTML = "";
 }
 
 var summaryData = {};
@@ -92,12 +92,20 @@ const consecDates = (cur, prev) => {
 	return curMomFormatted === checkMomFormatted;
 } 
 
+const formatDate = (date) => {
+	const yyyy = date.substring(0, 4);
+	const mm = date.substring(4, 6);
+	const dd = date.substring(6);
+	return mm + "/" + dd + "/" + yyyy;
+
+}
+
 const getLongestPosNeg = (posNeg) => {
 	let moodComp = posNeg ? [options[0][3], options[0][4]] : [options[0][0], options[0][1]];
-	// console.log("moodComp:", moodComp);
+	console.log("moodComp:", moodComp);
 
 	const keys = Object.keys(summaryData).sort((a,b) => a-b);
-	// console.log("sum data:", summaryData);
+	console.log("sum data:", summaryData);
 
 	// let maxInd = [];
 	let maxStreakStart = 0;
@@ -111,12 +119,15 @@ const getLongestPosNeg = (posNeg) => {
 	for (let i = 0; i < keys.length; i++) {
 		curDate = keys[i];
 		const curData = summaryData[curDate];
-		// console.log("prev:", prevDate, "cur:", curDate);
-		// console.log(consecDates(curDate, prevDate));
+		console.log("prev:", prevDate, "cur:", curDate);
+		console.log(consecDates(curDate, prevDate));
 		if (curData.mood.some(mood => moodComp.includes(mood))) { // if correct mood
+			console.log("correct mood");
 			if(curStreak === 0) { // if no streak yet
 				maxStreakStart = curDate; // set max streak start date
+				maxStreakEnd = curDate; // set max streak end date
 				curStreak = 1; // set current streak to 1
+				maxStreak = 1; // set max streak to 1
 			} else if (consecDates(curDate, prevDate)) { // if streak already exists and is next day
 				curStreak++; // increment streak
 				if(curStreak >= maxStreak) { // if current streak is longer than or equal to stored max streak
@@ -129,8 +140,8 @@ const getLongestPosNeg = (posNeg) => {
 		}
 		prevDate = curDate;
 	}
-
-	return [maxStreak, maxStreakStart, maxStreakEnd];
+	console.log("max:", [maxStreak, formatDate(maxStreakStart), formatDate(maxStreakEnd)]);
+	return [maxStreak, formatDate(maxStreakStart), formatDate(maxStreakEnd)];
 }
 
 const createStat = (statName, statData) => {

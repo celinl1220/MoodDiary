@@ -65,6 +65,14 @@
 	color: var(--subHeaderText-color);
 }
 
+#summary-wrapper .summary-body .content-div {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 5px;
+}
+
 #summary-wrapper .summary-body span {
 	font-size: 15px;
 	color: var(--regularText-color);
