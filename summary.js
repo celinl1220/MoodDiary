@@ -1,6 +1,8 @@
 const dataPrefix = "mood-diary-user-data-"; // string that all data stored in localStorage start with
 
 const moodOptions = options[0];
+let summaryBodyWrapper = document.createElement("div");
+summaryBodyWrapper.className = "summary-body-wrapper";
 
 const createSummaryHeader = () => {
 	let headerDiv = document.createElement("div");
@@ -12,6 +14,7 @@ const createSummaryHeader = () => {
 	
 	headerDiv.appendChild(title);
 	summaryWrapper.appendChild(headerDiv);
+	summaryWrapper.appendChild(summaryBodyWrapper);
 }
 
 const clearSummary = () => {
@@ -91,9 +94,10 @@ const consecDates = (cur, prev) => {
 
 const getLongestPosNeg = (posNeg) => {
 	let moodComp = posNeg ? [options[0][3], options[0][4]] : [options[0][0], options[0][1]];
+	// console.log("moodComp:", moodComp);
 
 	const keys = Object.keys(summaryData).sort((a,b) => a-b);
-	console.log(summaryData);
+	// console.log("sum data:", summaryData);
 
 	// let maxInd = [];
 	let maxStreakStart = 0;
@@ -115,7 +119,7 @@ const getLongestPosNeg = (posNeg) => {
 				curStreak = 1; // set current streak to 1
 			} else if (consecDates(curDate, prevDate)) { // if streak already exists and is next day
 				curStreak++; // increment streak
-				if(curStreak > maxStreak) { // if current streak is longer than stored max streak
+				if(curStreak >= maxStreak) { // if current streak is longer than or equal to stored max streak
 					maxStreak = curStreak; // set max streak to current streak
 					maxStreakEnd = curDate; // set max streak end date to current date
 				}
@@ -126,10 +130,11 @@ const getLongestPosNeg = (posNeg) => {
 		prevDate = curDate;
 	}
 
-	return maxStreak, maxStreakStart, maxStreakEnd;
+	return [maxStreak, maxStreakStart, maxStreakEnd];
 }
 
 const createStat = (statName, statData) => {
+	console.log("statData:", statData);
 	if (!statData.length) {
 		statData = ["n/a"];
 	}
@@ -151,5 +156,5 @@ const createStat = (statName, statData) => {
 
 	statDiv.appendChild(statHeader);
 	statDiv.appendChild(statContent);
-	summaryWrapper.appendChild(statDiv);
+	summaryBodyWrapper.appendChild(statDiv);
 }

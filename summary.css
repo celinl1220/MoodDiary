@@ -20,7 +20,7 @@
 	height: 405px;
 	width: 500px;
 	background: var(--mainBackground-color);
-	overflow: hidden;
+	overflow: scroll;
  	margin: 0 auto;
  	border: var(--border-color);
 
@@ -29,7 +29,9 @@
 }
 
 #summary-wrapper .header {
+	position: fixed;
 	height: 50px;
+	width: 100%;
 	line-height: 50px;
 	background: var(--header-background);
 	text-align: center;
@@ -46,6 +48,16 @@
 	margin-top: 10px;
 }
 
+.summary-body-wrapper {
+	padding-top: 50px;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+	gap: 5px;
+}
+
 #summary-wrapper h2 {
 	line-height: 30px;
 	font-size: 20px;
@@ -56,13 +68,4 @@
 #summary-wrapper .summary-body span {
 	font-size: 15px;
 	color: var(--regularText-color);
-}
-
-#summary-wrapper .content-div {
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-	justify-content: center;
-	align-items: center;
-	gap: 5px;
 }
