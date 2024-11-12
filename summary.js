@@ -93,6 +93,7 @@ const consecDates = (cur, prev) => {
 } 
 
 const formatDate = (date) => {
+	console.log("type:", typeof date);
 	const yyyy = date.substring(0, 4);
 	const mm = date.substring(4, 6);
 	const dd = date.substring(6);
